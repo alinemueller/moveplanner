@@ -56,6 +56,7 @@ window.onload = function () {
 				div.style.display = "none";
 			}
 		}
+		conosle.log('Raise add event', e);
 	}
 
 };
