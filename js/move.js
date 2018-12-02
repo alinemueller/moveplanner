@@ -1,62 +1,121 @@
+(function (window, document) {
 
-window.onload = function () {
-	// Create a "close" button and append it to each list item
-	var myNodelist = document.getElementsByTagName("LI");
-	var i;
-	for (i = 0; i < myNodelist.length; i++) {
-		var span = document.createElement("SPAN");
-		var txt = document.createTextNode("\u00D7");
-		span.className = "close";
-		span.appendChild(txt);
-		myNodelist[i].appendChild(span);
-	}
+	const listToJson = async () => {
+		let myNodelist = document.getElementsByTagName("LI");
+		let items = Array.prototype.map.call(myNodelist,
+			element =>
+			({
+				_id: '1231231',
+				title: element.innerText,
+				state: element.className === 'checked' ? 'completed' : 'default'
+			})
+		);
 
-	// Click on a close button to hide the current list item
-	var close = document.getElementsByClassName("close");
-	var i;
-	for (i = 0; i < close.length; i++) {
-		close[i].onclick = function () {
-			var div = this.parentElement;
-			div.style.display = "none";
-		}
-	}
+		return await JSON.stringify(items);
+	};
 
-	// Add a "checked" symbol when clicking on a list item
-	var list = document.querySelector('ul');
-	list.addEventListener('click', function (ev) {
-		if (ev.target.tagName === 'LI') {
-			ev.target.classList.toggle('checked');
-		}
-	}, false);
+	window.onload = function () {
+		let myNodelist = document.getElementsByTagName("LI");
+		let addButton = document.querySelector("#addBtn");
+		addButton.addEventListener("click", async () => await addItem());
 
-	let addButton = document.querySelector("#addBtn");
-	addButton.addEventListener('click', newElement);
-	// Create a new list item when clicking on the "Add" button
-	function newElement(e) {
-		var li = document.createElement("li");
-		var inputValue = document.getElementById("myInput").value;
-		var t = document.createTextNode(inputValue);
-		li.appendChild(t);
-		if (inputValue === '') {
-			alert("Item is empty!");
-		} else {
-			document.getElementById("myUL").appendChild(li);
-		}
-		document.getElementById("myInput").value = "";
+		const appendCloseButtontoEachItemInList = async () => {
+			let x = () => {
+				// Create a "close" button and append it to each list item
+				var i;
+				for (i = 0; i < myNodelist.length; i++) {
+					var span = document.createElement("SPAN");
+					var txt = document.createTextNode("\u00D7");
+					span.className = "close";
+					span.appendChild(txt);
+					myNodelist[i].appendChild(span);
+				}
+			};
 
-		var span = document.createElement("SPAN");
-		var txt = document.createTextNode("\u00D7");
-		span.className = "close";
-		span.appendChild(txt);
-		li.appendChild(span);
+			try {
+				return await x();
+			} catch (error) {}
+		};
 
-		for (i = 0; i < close.length; i++) {
-			close[i].onclick = function () {
-				var div = this.parentElement;
-				div.style.display = "none";
+		const hideCurrentListItem = async () => {
+			const x = () => {
+				// Click on a close button to hide the current list item
+				var close = document.getElementsByClassName("close");
+				var i;
+				for (i = 0; i < close.length; i++) {
+					close[i].onclick = function () {
+						var div = this.parentElement;
+						div.style.display = "none";
+					};
+				}
+			};
+			try {
+				return await x();
+			} catch (error) {
+				console.log(error);
 			}
-		}
-		console.log('Raise add event', e);
-	}
+		};
 
-};
+		const markItemAsCompleted = async () => {
+			// Add a "checked" symbol when clicking on a list item
+			var list = document.querySelector("ul");
+			list.addEventListener(
+				"click",
+				function (ev) {
+					if (ev.target.tagName === "LI") {
+						ev.target.classList.toggle("checked");
+					}
+				},
+				false
+			);
+		};
+
+		// Create a new list item when clicking on the "Add" button
+		const addItem = async e => {
+			const appendItem = async () => {
+				var li = document.createElement("li");
+				var inputValue = document.getElementById("myInput").value;
+				var t = document.createTextNode(inputValue);
+				var span = document.createElement("SPAN");
+				var txt = document.createTextNode("\u00D7");
+
+				li.appendChild(t);
+				if (inputValue === "") {
+					alert("Item is empty!");
+				} else {
+					document.getElementById("myUL").appendChild(li);
+				}
+
+				document.getElementById("myInput").value = "";
+
+				span.className = "close";
+				span.appendChild(txt);
+				li.appendChild(span);
+
+
+
+				console.log("Raise add event", e);
+				return await registerDeleteClick();
+			};
+			const registerDeleteClick = async () => {
+				let close = document.getElementsByClassName("close");
+				for (i = 0; i < close.length; i++) {
+					close[i].onclick = function () {
+						var div = this.parentElement;
+						div.style.display = "none";
+					};
+				}
+			};
+
+			return await appendItem();
+		};
+
+
+		let init = async () => {
+			await appendCloseButtontoEachItemInList();
+			await hideCurrentListItem();
+			await markItemAsCompleted();
+		}
+		init().then(async () => console.log(await listToJson()));
+	};
+})(window, document);
