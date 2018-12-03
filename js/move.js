@@ -162,7 +162,6 @@
 
 	window.onload = function () {
 
-
 		let nodeContainer = document.querySelector("#myUL");
 		let myNodelist = document.getElementsByTagName("LI");
 		let addButton = document.querySelector("#addBtn");
@@ -171,7 +170,7 @@
 		
 		const appendCloseButtontoEachItemInList = async () => {
 		
-			let append = async () => {
+			const append =  async() => {
 				// Create a "close" button and append it to each list item
 				var i;
 				for (i = 0; i < myNodelist.length; i++) {
@@ -181,10 +180,9 @@
 					span.appendChild(txt);
 					myNodelist[i].appendChild(span);
 				}
-				return  attachDeleteEventListener();
+				return   await attachDeleteEventListener();
 			};
-			const attachDeleteEventListener = async () => {
-				const x = () => {
+			const attachDeleteEventListener =  async () => {
 					// Click on a close button to hide the current list item
 					var close = document.getElementsByClassName("close");
 					var i;
@@ -195,9 +193,9 @@
 							li.dataset.state = "deleted";
 						};
 					}
-				};
+				}
 				
-			};
+			
 			try {
 				return await append();
 			} catch (error) {
