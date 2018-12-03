@@ -1,5 +1,7 @@
 // import {tasks} from './json/tasks.js' //consider this statement 
 
+
+
 (function (window, document) {
 
 	const tasks = [
@@ -161,123 +163,9 @@
 	}
 
 	window.onload = function () {
-
-		let nodeContainer = document.querySelector("#myUL");
-		let myNodelist = document.getElementsByTagName("LI");
+		let todocontroller = new TasksController(tasks, document);
+		Object.freeze(todocontroller);
 		let addButton = document.querySelector("#addBtn");
-		
-		addButton.addEventListener("click", async () => await addItem());
-		
-		const appendCloseButtontoEachItemInList = async () => {
-		
-			const append =  async() => {
-				// Create a "close" button and append it to each list item
-				var i;
-				for (i = 0; i < myNodelist.length; i++) {
-					var span = document.createElement("SPAN");
-					var txt = document.createTextNode("\u00D7");
-					span.className = "close";
-					span.appendChild(txt);
-					myNodelist[i].appendChild(span);
-				}
-				return   await attachDeleteEventListener();
-			};
-			const attachDeleteEventListener =  async () => {
-					// Click on a close button to hide the current list item
-					var close = document.getElementsByClassName("close");
-					var i;
-					for (i = 0; i < close.length; i++) {
-						close[i].onclick = function () {
-							var li = this.parentElement;
-							li.style.display = "none";
-							li.dataset.state = "deleted";
-						};
-					}
-				}
-				
-			
-			try {
-				return await append();
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		const attachDoneEventListener = async () => {
-			const x = () => {
-				// Add a "checked" symbol when clicking on a list item
-				var list = document.querySelector("ul");
-				list.addEventListener("click", function (ev) {
-					if (ev.target.tagName === "LI") {
-						ev.target.classList.toggle("checked");
-						if (ev.target.classList.contains("checked")) {
-							ev.target.dataset.state = 'done';
-						} else {
-							ev.target.dataset.state = 'default';
-						}
-
-					}
-				}, false);
-			};
-			try {
-				return await x();
-			} catch (error) {
-
-			}
-		};
-
-		// Create a new list item when clicking on the "Add" button
-		const addItem = async e => {
-
-			const appendItem = async () => {
-				var li = document.createElement("li");
-				var inputValue = document.getElementById("myInput").value;
-				var t = document.createTextNode(inputValue);
-				var span = document.createElement("SPAN");
-				var txt = document.createTextNode("\u00D7");
-
-				li.appendChild(t);
-				if (inputValue === "") {
-					alert("Item is empty!");
-				} else {
-					document.getElementById("myUL").appendChild(li);
-				}
-
-				document.getElementById("myInput").value = "";
-
-				span.className = "close";
-				span.appendChild(txt);
-				li.appendChild(span);
-				li.dataset.state = 'custom';
-				return await registerDeleteClick();
-			};
-
-			const registerDeleteClick = async () => {
-				let close = document.getElementsByClassName("close");
-				for (i = 0; i < close.length; i++) {
-					close[i].onclick = function (ev) {
-						var li = this.parentElement;
-						li.style.display = "none";//
-						li.dataset.state = "deleted";
-						console.log(li);
-					};
-				}
-			};
-
-			return await appendItem();
-		};
-
-		let init = async () => {
-			try {
-				await buildList().then((list) => nodeContainer.innerHTML = list);
-				await appendCloseButtontoEachItemInList();
-				await attachDoneEventListener();
-			}
-			catch (error) {
-				console.log(error);
-			}
-		}
-		init();
-
+		addButton.addEventListener("click", async () => await todocontroller.addItem());
 	};
 })(window, document);
