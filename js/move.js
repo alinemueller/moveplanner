@@ -72,6 +72,7 @@
 
 		// Create a new list item when clicking on the "Add" button
 		const addItem = async e => {
+
 			const appendItem = async () => {
 				var li = document.createElement("li");
 				var inputValue = document.getElementById("myInput").value;
@@ -91,12 +92,10 @@
 				span.className = "close";
 				span.appendChild(txt);
 				li.appendChild(span);
-
-
-
 				console.log("Raise add event", e);
 				return await registerDeleteClick();
 			};
+
 			const registerDeleteClick = async () => {
 				let close = document.getElementsByClassName("close");
 				for (i = 0; i < close.length; i++) {
@@ -112,9 +111,14 @@
 
 
 		let init = async () => {
-			await appendCloseButtontoEachItemInList();
-			await hideCurrentListItem();
-			await markItemAsCompleted();
+			try {
+				await appendCloseButtontoEachItemInList();
+				await hideCurrentListItem();
+				await markItemAsCompleted();
+			}
+			catch(error){
+				console.log(error);
+			}
 		}
 		init().then(async () => console.log(await listToJson()));
 	};
