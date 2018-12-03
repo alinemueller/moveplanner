@@ -1,18 +1,38 @@
+import tasks from './json/tasks.js'
+
 (function (window, document) {
+
+
 
 	const listToJson = async () => {
 		let myNodelist = document.getElementsByTagName("LI");
 		let items = Array.prototype.map.call(myNodelist,
 			element =>
-			({
-				_id: '1231231',
-				title: element.innerText,
-				state: element.className === 'checked' ? 'completed' : 'default'
-			})
+				({
+					_id: element.data("_id"),
+					title: element.data("title"),
+					state: element.state? element.state: 'default'
+				})
 		);
 
 		return await JSON.stringify(items);
 	};
+
+	const buildList = async () => {
+
+		const items = Array.prototype.map.call(tasks, (item) => {
+			if (item.state === 'DELETED') {
+				return '';
+			}
+			if (item.state === "done") {
+				_class = "checked";
+			}
+			return "<li data-id='" + item.id + "' class='" + _class + "'>" + item.title + "<li>";
+
+		}, {}).join('');
+
+		return await items;
+	}
 
 	window.onload = function () {
 		let myNodelist = document.getElementsByTagName("LI");
@@ -34,10 +54,10 @@
 
 			try {
 				return await x();
-			} catch (error) {}
+			} catch (error) { }
 		};
 
-		const hideCurrentListItem = async () => {
+		const attachDeleteEventListener = async () => {
 			const x = () => {
 				// Click on a close button to hide the current list item
 				var close = document.getElementsByClassName("close");
@@ -56,18 +76,14 @@
 			}
 		};
 
-		const markItemAsCompleted = async () => {
+		const attachDoneEventListener = async () => {
 			// Add a "checked" symbol when clicking on a list item
 			var list = document.querySelector("ul");
-			list.addEventListener(
-				"click",
-				function (ev) {
-					if (ev.target.tagName === "LI") {
-						ev.target.classList.toggle("checked");
-					}
-				},
-				false
-			);
+			list.addEventListener("click", function (ev) {
+				if (ev.target.tagName === "LI") {
+					ev.target.classList.toggle("checked");
+				}
+			}, false);
 		};
 
 		// Create a new list item when clicking on the "Add" button
@@ -105,7 +121,7 @@
 					};
 				}
 			};
- 
+
 			return await appendItem();
 		};
 
@@ -113,10 +129,10 @@
 		let init = async () => {
 			try {
 				await appendCloseButtontoEachItemInList();
-				await hideCurrentListItem();
-				await markItemAsCompleted();
+				await attachDeleteEventListener();
+				await attachDoneEventListener();
 			}
-			catch(error){
+			catch (error) {
 				console.log(error);
 			}
 		}
