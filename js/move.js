@@ -11,7 +11,7 @@ import tasks from './json/tasks.js'
 				({
 					_id: element.data("_id"),
 					title: element.data("title"),
-					state: element.state? element.state: 'default'
+					state: element.state ? element.state : 'default'
 				})
 		);
 
@@ -36,11 +36,12 @@ import tasks from './json/tasks.js'
 
 	window.onload = function () {
 		let nodeContainer = document.querySelector("myUL");
-		await buildList().then ((list)=>nodeContainer.innerHTML = list);
-		
+		await buildList().then((list) => nodeContainer.innerHTML = list);
+
 		let myNodelist = document.getElementsByTagName("LI");
 
 		let addButton = document.querySelector("#addBtn");
+
 		addButton.addEventListener("click", async () => await addItem());
 
 		const appendCloseButtontoEachItemInList = async () => {
@@ -81,13 +82,20 @@ import tasks from './json/tasks.js'
 		};
 
 		const attachDoneEventListener = async () => {
-			// Add a "checked" symbol when clicking on a list item
-			var list = document.querySelector("ul");
-			list.addEventListener("click", function (ev) {
-				if (ev.target.tagName === "LI") {
-					ev.target.classList.toggle("checked");
-				}
-			}, false);
+			const x = () => {
+				// Add a "checked" symbol when clicking on a list item
+				var list = document.querySelector("ul");
+				list.addEventListener("click", function (ev) {
+					if (ev.target.tagName === "LI") {
+						ev.target.classList.toggle("checked");
+					}
+				}, false);
+			};
+			try {
+				return await x();
+			} catch (error) {
+				
+			}
 		};
 
 		// Create a new list item when clicking on the "Add" button
