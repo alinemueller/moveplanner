@@ -154,9 +154,9 @@
 			if (item.state === "done") {
 				_class = "checked";
 			}
-			return "<li data-state='" + item.state ? item.state : '' + "' data-id='" + item._id + "' class='" + _class === '' ? '' : _class + "'>" + item.title + "</li>";
+			return `<li data-state=${item.state} data-id="${item._id}" class="${_class}">${item.title}</li>`;
 
-		}, {}).join('');
+		}).join('');
 		return await items;
 	}
 
