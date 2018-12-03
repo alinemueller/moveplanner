@@ -101,11 +101,11 @@
 				for (i = 0; i < close.length; i++) {
 					close[i].onclick = function () {
 						var div = this.parentElement;
-						div.style.display = "none";
+						div.style.display = "none";//
 					};
 				}
 			};
-
+ 
 			return await appendItem();
 		};
 
@@ -120,6 +120,6 @@
 				console.log(error);
 			}
 		}
-		init().then(async () => console.log(await listToJson()));
+		init().then(async () => console.log(await listToJson()));//test
 	};
 })(window, document);
