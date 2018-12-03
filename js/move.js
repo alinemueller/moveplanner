@@ -35,7 +35,11 @@ import tasks from './json/tasks.js'
 	}
 
 	window.onload = function () {
+		let nodeContainer = document.querySelector("myUL");
+		await buildList().then ((list)=>nodeContainer.innerHTML = list);
+		
 		let myNodelist = document.getElementsByTagName("LI");
+
 		let addButton = document.querySelector("#addBtn");
 		addButton.addEventListener("click", async () => await addItem());
 
