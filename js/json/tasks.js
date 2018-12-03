@@ -1,4 +1,5 @@
-export default [
+'use strict';
+export const tasks =  [
     {
       "_id": "01e0ba3c-0693-4017-9401-3ab6f017ad1e",
       "title": "Mietvertrag der neuen Wohnung unterzeichnen",

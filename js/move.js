@@ -164,16 +164,13 @@
 
 
 		let nodeContainer = document.querySelector("#myUL");
-
-
-
 		let myNodelist = document.getElementsByTagName("LI");
-
 		let addButton = document.querySelector("#addBtn");
-
+		
 		addButton.addEventListener("click", async () => await addItem());
-
+		
 		const appendCloseButtontoEachItemInList = async () => {
+		
 			let append = async () => {
 				// Create a "close" button and append it to each list item
 				var i;
@@ -184,7 +181,7 @@
 					span.appendChild(txt);
 					myNodelist[i].appendChild(span);
 				}
-				return await attachDeleteEventListener();
+				return  attachDeleteEventListener();
 			};
 			const attachDeleteEventListener = async () => {
 				const x = () => {
@@ -199,20 +196,14 @@
 						};
 					}
 				};
-				try {
-					return await x();
-				} catch (error) {
-					console.log(error);
-				}
+				
 			};
 			try {
 				return await append();
-
-
-			} catch (error) { }
+			} catch (error) {
+				console.log(error);
+			}
 		};
-
-
 
 		const attachDoneEventListener = async () => {
 			const x = () => {
