@@ -142,7 +142,7 @@ class TasksController {
     };
 
     getThreeMonthQuery (){
-        return JSON.parse({query: {"key" : "days", "param": 90}});
+        return JSON.parse('{"query": {"key" : "days", "param": 90}}');
     }
     async init() {
 
