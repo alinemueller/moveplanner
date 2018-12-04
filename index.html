@@ -34,10 +34,12 @@
     })();
   </script> -->
   <script>
-    let todocontroller = new TasksController(tasks, document,window);
-		//Object.freeze(todocontroller);
-		let addButton = document.querySelector("#addBtn");
-		addButton.addEventListener("click", async () => await todocontroller.addItem());
+    function ready () {
+      let todocontroller = new TasksController(tasks, document,window);
+      //Object.freeze(todocontroller);
+      let addButton = document.querySelector("#addBtn");
+      addButton.addEventListener("click", async () => await todocontroller.addItem());
+    }
   </script>
 </body>
 
