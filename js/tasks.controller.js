@@ -21,12 +21,13 @@ class TasksController {
     };
 
     async buildList() {
-        let _class = "";
+        
         const items = Array.prototype.map.call(this.tasks, (item) => {
+            let _class = "";
             if (item.state === 'deleted') {
                 return '';
             }
-            if (item.state === "done") {
+            if (item.state === "completed") {
                 _class = "checked";
             }
             return `<li data-state=${item.state} data-id="${item._id}" class="${_class}">${item.title}</li>`;

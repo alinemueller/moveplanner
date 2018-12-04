@@ -7,7 +7,8 @@ export const tasks =  [
       "days_after_move": 0,
       "_owner": "3d46bfaa-05c7-4ef9-bf5f-4ad37fb493d2",
       "_updatedDate": "2018-11-30T12:45:22.056Z",
-      "_createdDate": "2018-11-30T12:45:22.056Z"
+      "_createdDate": "2018-11-30T12:45:22.056Z",
+      "state" :"completed"
     },
     {
       "_id": "5b8462d9-4321-436f-a6cf-39cc3502f79d",
@@ -16,7 +17,8 @@ export const tasks =  [
       "days_after_move": 0,
       "_owner": "3d46bfaa-05c7-4ef9-bf5f-4ad37fb493d2",
       "_updatedDate": "2018-11-30T12:45:22.055Z",
-      "_createdDate": "2018-11-30T12:45:22.055Z"
+      "_createdDate": "2018-11-30T12:45:22.055Z",
+      "state" : "deleted"
     },
     {
       "_id": "a274c55a-9fef-4e37-a83f-32e541fd1e2b",
