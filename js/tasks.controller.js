@@ -1,11 +1,10 @@
 class TasksController {
 
     constructor(document, window) {
-
         this.document = document;
         this.nodeContainer = document.querySelector("#myUL");
         this.window = window;
-        this.init();
+      
     }
     async listToJson() {
 
@@ -144,22 +143,16 @@ class TasksController {
     getThreeMonthQuery() {
         return JSON.parse('{"query": {"key" : "days", "param": 90, "collectionName": "MovementTasks"}}');
     }
-    async init() {
+    async init(data) {
 
         try {
-            this.window.onmessage = (event) => {
-                if (event.data) {
-                    console.log('data received in module', event);
-                    this.tasks = event.data;
-                }
-            };
-            this.window.parent.postMessage(this.getThreeMonthQuery());
+            this.tasks = data;
             await this.buildList().then((list) => this.nodeContainer.innerHTML = list);
             await this.appendCloseButtontoEachItemInList();
             await this.attachDoneEventListener();
         }
         catch (error) {
-            console.log(error);
+            console.log('fomr task controller', error);
         }
     }
 

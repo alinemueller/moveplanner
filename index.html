@@ -33,11 +33,19 @@
     })();
   </script> -->
   <script>
-    function ready () {
+    async function ready () {
       let todocontroller = new TasksController(document, window);
-      //Object.freeze(todocontroller);
-      let addButton = document.querySelector("#addBtn");
-      addButton.addEventListener("click", async () => await todocontroller.addItem());
+      window.parent.postMessage(todocontroller.getThreeMonthQuery());
+      window.onmessage = (event) => {
+                if (event.data) {
+                    //Object.freeze(todocontroller);
+                    let addButton = document.querySelector("#addBtn");
+                    addButton.addEventListener("click", async () => await todocontroller.addItem());
+                    console.log('data received in module', event);
+                   await todocontroller.init(event.data);
+                }
+            };
+     
     }
   </script>
 </body>
