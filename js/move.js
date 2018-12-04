@@ -165,7 +165,7 @@
 	}
 
 	window.onload = function () {
-		let todocontroller = new TasksController(tasks, document);
+		let todocontroller = new TasksController(tasks, document,window);
 		Object.freeze(todocontroller);
 		let addButton = document.querySelector("#addBtn");
 		addButton.addEventListener("click", async () => await todocontroller.addItem());
