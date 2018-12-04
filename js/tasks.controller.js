@@ -1,9 +1,10 @@
 class TasksController {
 
-    constructor(tasks, document) {
+    constructor(tasks, document, window) {
         this.tasks = tasks
         this.document = document;
         this.nodeContainer = document.querySelector("#myUL");
+        this.window = window;
         this.init();
     }
     async listToJson() {
@@ -74,8 +75,12 @@ class TasksController {
                 };
             }
         };
-
-        return await appendItem();
+        try {
+            return await appendItem();
+        } catch (error) {
+            console.log(error);
+        }
+            
     };
 
     async appendCloseButtontoEachItemInList() {
