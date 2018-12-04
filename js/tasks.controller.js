@@ -4,7 +4,8 @@ class TasksController {
         this.document = document;
         this.nodeContainer = document.querySelector("#myUL");
         this.window = window;
-      
+        this.addButton = document.querySelector("#addBtn");
+        this.addButton.addEventListener("click", async () => await this.addItem());
     }
     async listToJson() {
 

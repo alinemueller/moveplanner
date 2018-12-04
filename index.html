@@ -7,8 +7,7 @@
           window.onmessage = (event) => {
                     if (event.data) {
                         //Object.freeze(todocontroller);
-                        let addButton = document.querySelector("#addBtn");
-                        addButton.addEventListener("click", async () => await todocontroller.addItem());
+                       
                         console.log('data received in module', event);
                         todocontroller.init(event.data);
                     }
