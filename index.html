@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
-
+    <script>
+        function ready () {
+          let todocontroller = new TasksController(document, window);
+          window.parent.postMessage(todocontroller.getThreeMonthQuery());
+          window.onmessage = (event) => {
+                    if (event.data) {
+                        //Object.freeze(todocontroller);
+                        let addButton = document.querySelector("#addBtn");
+                        addButton.addEventListener("click", async () => await todocontroller.addItem());
+                        console.log('data received in module', event);
+                        todocontroller.init(event.data);
+                    }
+                };
+         
+        }
+      </script>
 <body onLoad="ready()">
 
   <head>
@@ -32,22 +47,7 @@
       // → logs 'Doing stuff…'
     })();
   </script> -->
-  <script>
-    function ready () {
-      let todocontroller = new TasksController(document, window);
-      window.parent.postMessage(todocontroller.getThreeMonthQuery());
-      window.onmessage = (event) => {
-                if (event.data) {
-                    //Object.freeze(todocontroller);
-                    let addButton = document.querySelector("#addBtn");
-                    addButton.addEventListener("click", async () => await todocontroller.addItem());
-                    console.log('data received in module', event);
-                    todocontroller.init(event.data);
-                }
-            };
-     
-    }
-  </script>
+ 
 </body>
 
 </html>
