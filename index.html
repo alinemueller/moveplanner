@@ -3,9 +3,9 @@
     <script>
         function ready () {
           window.parent.postMessage({"type":"ready"}, "*");
-          
+
           let todocontroller = new TasksController(document, window);
-          window.parent.postMessage(todocontroller.getThreeMonthQuery());
+          window.parent.postMessage({"query": {"key" : "days", "param": 90, "collectionName": "MovementTasks"}});
           window.onmessage = (event) => {
                     if (event.data) {
                         //Object.freeze(todocontroller);
