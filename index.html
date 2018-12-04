@@ -11,7 +11,7 @@
                         //Object.freeze(todocontroller);
                        
                         console.log('data received in module', event);
-                        todocontroller.init(event.data.items);
+                        todocontroller.init(JSON.parse(event.data.items));
                     }
                 };
          
