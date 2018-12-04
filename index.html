@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<body>
+<body onLoad="ready()">
 
   <head>
     <link href="css/move.css" rel="stylesheet" type="text/css">
@@ -33,6 +33,12 @@
       // → logs 'Doing stuff…'
     })();
   </script> -->
+  <script>
+    let todocontroller = new TasksController(tasks, document,window);
+		//Object.freeze(todocontroller);
+		let addButton = document.querySelector("#addBtn");
+		addButton.addEventListener("click", async () => await todocontroller.addItem());
+  </script>
 </body>
 
 </html>
