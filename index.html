@@ -6,7 +6,6 @@
   <head>
     <link href="css/move.css" rel="stylesheet" type="text/css">
     <script src="js/tasks.controller.js" type="text/javascript"></script>
-    <script src="js/move.js" type="text/javascript"></script>
   </head>
   <div id="myDIV" class="header">
     <h2>3 Monate vor dem Umzug</h2>
@@ -35,7 +34,7 @@
   </script> -->
   <script>
     function ready () {
-      let todocontroller = new TasksController(tasks, document,window);
+      let todocontroller = new TasksController(document, window);
       //Object.freeze(todocontroller);
       let addButton = document.querySelector("#addBtn");
       addButton.addEventListener("click", async () => await todocontroller.addItem());

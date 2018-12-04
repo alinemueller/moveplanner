@@ -1,7 +1,7 @@
 class TasksController {
 
-    constructor(tasks, document, window) {
-        this.tasks = tasks
+    constructor(document, window) {
+
         this.document = document;
         this.nodeContainer = document.querySelector("#myUL");
         this.window = window;
@@ -22,7 +22,7 @@ class TasksController {
     };
 
     async buildList() {
-        
+
         const items = Array.prototype.map.call(this.tasks, (item) => {
             let _class = "";
             if (item.state === 'deleted') {
@@ -80,8 +80,8 @@ class TasksController {
         } catch (error) {
             console.log(error);
         }
-                  
-            
+
+
     };
 
     async appendCloseButtontoEachItemInList() {
@@ -141,7 +141,7 @@ class TasksController {
         }
     };
 
-    getThreeMonthQuery (){
+    getThreeMonthQuery() {
         return JSON.parse('{"query": {"key" : "days", "param": 90, "collectionName": "MovementTasks"}}');
     }
     async init() {
@@ -150,9 +150,9 @@ class TasksController {
             this.window.onmessage = (event) => {
                 if (event.data) {
                     console.log('data received in module', event);
-                   this.tasks = event.data;
+                    this.tasks = event.data;
                 }
-              };
+            };
             this.window.parent.postMessage(this.getThreeMonthQuery());
             await this.buildList().then((list) => this.nodeContainer.innerHTML = list);
             await this.appendCloseButtontoEachItemInList();
