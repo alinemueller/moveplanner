@@ -2,6 +2,8 @@
 <html>
     <script>
         function ready () {
+          window.parent.postMessage({"type":"ready"}, "*");
+          
           let todocontroller = new TasksController(document, window);
           window.parent.postMessage(todocontroller.getThreeMonthQuery());
           window.onmessage = (event) => {
