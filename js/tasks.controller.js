@@ -152,7 +152,7 @@ class TasksController {
                    this.tasks = event.data;
                 }
               };
-            this.window.parent.postMessage(getThreeMonthQuery);
+            this.window.parent.postMessage(getThreeMonthQuery());
             await this.buildList().then((list) => this.nodeContainer.innerHTML = list);
             await this.appendCloseButtontoEachItemInList();
             await this.attachDoneEventListener();
