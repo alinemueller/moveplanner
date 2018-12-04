@@ -71,15 +71,16 @@ class TasksController {
                     var li = close[i].parentElement;
                     li.style.display = "none";//
                     li.dataset.state = "deleted";
-                    console.log(li);
                 };
             }
         };
         try {
+            //await this.window.parent.postMessage();
             return await appendItem();
         } catch (error) {
             console.log(error);
         }
+                  
             
     };
 
@@ -140,10 +141,18 @@ class TasksController {
         }
     };
 
-
+    getThreeMonthQuery (){
+        return JSON.parse({query: {"key" : "days", "param": 90}});
+    }
     async init() {
 
         try {
+            this.window.onmessage = (event) => {
+                if (event.data) {
+                   this.tasks = event.data;
+                }
+              };
+            this.window.parent.postMessage(getThreeMonthQuery);
             await this.buildList().then((list) => this.nodeContainer.innerHTML = list);
             await this.appendCloseButtontoEachItemInList();
             await this.attachDoneEventListener();
