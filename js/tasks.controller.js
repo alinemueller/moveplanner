@@ -142,13 +142,14 @@ class TasksController {
     };
 
     getThreeMonthQuery (){
-        return JSON.parse('{"query": {"key" : "days", "param": 90}}');
+        return JSON.parse('{"query": {"key" : "days", "param": 90, "collectionName": "MovementTasks"}}');
     }
     async init() {
 
         try {
             this.window.onmessage = (event) => {
                 if (event.data) {
+                    console.log('data received in module', event);
                    this.tasks = event.data;
                 }
               };
