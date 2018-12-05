@@ -16,7 +16,7 @@
       cursor: pointer;
       position: relative;
       padding: 12px 8px 12px 40px;
-      background: #eee;
+      background: #fff;
       font-size: 18px;
       transition: 0.2s;
   
@@ -28,10 +28,8 @@
   }
   
  
-  /* When clicked on, add a background color and strike out text */
+  /* When clicked on, strike out text */
   ul li.checked {
-      background: #888;
-      color: #fff;
       text-decoration: line-through;
   }
   
@@ -39,7 +37,7 @@
   ul li.checked::before {
       content: '';
       position: absolute;
-      border-color: #fff;
+      border-color: #66cc00;
       border-style: solid;
       border-width: 0 2px 2px 0;
       top: 10px;
@@ -58,13 +56,13 @@
   }
   
   .close:hover {
-      background-color: #00C99C;
+      background-color: #66cc00;
       color: white;
   }
   
   /* Style the header */
   .header {
-    background-color: #00C99C;
+    background-color: #66cc00;
     padding: 10px 10px 20px 10px;
     color: white;
     text-align: center;
